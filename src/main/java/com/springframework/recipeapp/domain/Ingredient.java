@@ -27,6 +27,5 @@ public class Ingredient {
     private UnitOfMeasure unitOfMeasure;
 
     @ManyToOne
-    @NonNull
     private Recipe recipe;
 }
