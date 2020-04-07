@@ -5,17 +5,21 @@ import com.springframework.recipeapp.domain.repositories.CategoryRepository;
 import com.springframework.recipeapp.domain.repositories.RecipeRepository;
 import com.springframework.recipeapp.domain.repositories.UnitOfMeasureRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @AllArgsConstructor
 @Component
+@Slf4j
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent > {
 
     private final CategoryRepository categoryRepository;
@@ -23,6 +27,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     private final UnitOfMeasureRepository unitOfMeasureRepository;
 
     private List<Recipe> getRecipes() {
+        log.debug("Logging Bootstrap data..");
         List<Recipe> recipes = new ArrayList<>(2);
 
         //get UOMs
