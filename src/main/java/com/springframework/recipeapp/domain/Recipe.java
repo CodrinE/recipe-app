@@ -8,6 +8,8 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+import static java.util.Objects.isNull;
+
 @Getter @Setter
 @Entity
 public class Recipe {
@@ -24,7 +26,7 @@ public class Recipe {
     private String url;
 
     @Lob
-    private String directions;
+    private String direction;
 
     @Enumerated(value = EnumType.STRING)
     private Difficulty difficulty;
@@ -46,8 +48,10 @@ public class Recipe {
     private Set<Category> categories = new HashSet<>();
 
     public void setNotes(Notes notes){
-        this.notes = notes;
-        notes.setRecipe(this);
+        if(!isNull(notes)){
+            this.notes = notes;
+            notes.setRecipe(this);
+        }
     }
 
     public void addIngredients(Ingredient ingredient){
