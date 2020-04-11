@@ -3,13 +3,12 @@ package com.springframework.recipeapp.controllers;
 import com.springframework.recipeapp.commands.RecipeCommand;
 import com.springframework.recipeapp.services.RecipeService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Controller
 @AllArgsConstructor
 public class RecipeController {
@@ -40,5 +39,15 @@ public class RecipeController {
         RecipeCommand saveCommand = recipeService.saveRecipeCommand(recipeCommand);
 
         return "redirect:/recipe/" + saveCommand.getId() + "/show";
+    }
+
+    @GetMapping
+    @RequestMapping("recipe/{id}/delete")
+    public String deleteById(@PathVariable String id){
+            log.debug("Deleting recipe with id {}", id);
+
+            recipeService.deleteById(Long.valueOf(id));
+
+            return "redirect:/";
     }
 }
