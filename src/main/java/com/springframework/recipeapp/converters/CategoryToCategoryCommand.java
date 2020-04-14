@@ -16,9 +16,6 @@ public class CategoryToCategoryCommand implements Converter<Category, CategoryCo
     @Synchronized
     @Override
     public CategoryCommand convert(Category source) {
-        if(isNull(source)){
-            return null;
-        }
         final CategoryCommand category = new CategoryCommand();
         category.setId(source.getId());
         category.setDescription(source.getDescription());
